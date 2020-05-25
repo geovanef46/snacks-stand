@@ -1,0 +1,7 @@
+{
+  "name": "snacks-stand",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
