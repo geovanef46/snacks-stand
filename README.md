@@ -1,5 +1,5 @@
 # snacks-stand
-This project was generated with [Ionic Framewor](https://ionicframework.com/)
+This project was generated with [Ionic Framework](https://ionicframework.com/)
 
 ## Instalation
 
