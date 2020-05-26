@@ -18,7 +18,7 @@ This project was generated with [Ionic Framework](https://ionicframework.com/)
     ionic build
     
 ### Ionic Capacitor
-*After, copy web assets to native platforms*
+*After the build, copy web assets to native platforms*
 
     1 - ionic capacitor copy [<platform>]
     
