@@ -1,5 +1,5 @@
 # snacks-stand
-This project was generated with [Ionic Framewor] (https://ionicframework.com/)
+This project was generated with [Ionic Framewor](https://ionicframework.com/)
 
 ## Instalation
 
@@ -10,6 +10,7 @@ This project was generated with [Ionic Framewor] (https://ionicframework.com/)
 ## Running / Development server
 
     ionic serve
+    acess: http://localhost:8100/
     
 
 ## Build
