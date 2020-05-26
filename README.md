@@ -3,7 +3,7 @@ This project was generated with [Ionic Framework](https://ionicframework.com/)
 
 ## Instalation
 
-    git clone https://github.com/geovanef46/snacks-stand
+    git clone https://github.com/geovanef46/snacks-stand.git
     cd snack-stand
     npm install
 
