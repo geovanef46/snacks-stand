@@ -17,4 +17,12 @@ This project was generated with [Ionic Framework](https://ionicframework.com/)
 
     ionic build
     
+### Ionic Capacitor
+*After, copy web assets to native platforms*
+
+    1 - ionic capacitor copy [<platform>]
     
+    2 - ionic capacitor open <platform>   
+    Open the IDE for your native project (Xcode for iOS, Android Studio for Android)
+    
+    3 - ionic capacitor run android -l
