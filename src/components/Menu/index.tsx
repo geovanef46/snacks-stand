@@ -13,19 +13,16 @@ import {
 } from "@ionic/react";
 
 import {
-  archiveOutline,
+  clipboardOutline,
+  chatbubbleOutline,
   archiveSharp,
-  bookmarkOutline,
   heartOutline,
   heartSharp,
-  mailOutline,
   mailSharp,
-  paperPlaneOutline,
+  logOutOutline,
   paperPlaneSharp,
-  trashOutline,
+  restaurantOutline,
   trashSharp,
-  warningOutline,
-  warningSharp,
 } from "ionicons/icons";
 
 import "./styles.css";
@@ -39,44 +36,36 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: "Inbox",
-    url: "/page/Inbox",
-    iosIcon: mailOutline,
+    title: "Pedidos",
+    url: "/page/orders",
+    iosIcon: clipboardOutline,
     mdIcon: mailSharp,
   },
   {
-    title: "Outbox",
-    url: "/page/Outbox",
-    iosIcon: paperPlaneOutline,
+    title: "Favoritos",
+    url: "/page/favorites",
+    iosIcon: heartOutline,
     mdIcon: paperPlaneSharp,
   },
   {
-    title: "Favorites",
-    url: "/page/Favorites",
-    iosIcon: heartOutline,
+    title: "Comentários",
+    url: "/page/coments",
+    iosIcon: chatbubbleOutline,
     mdIcon: heartSharp,
   },
   {
-    title: "Archived",
-    url: "/page/Archived",
-    iosIcon: archiveOutline,
+    title: "Lanchonetes",
+    url: "/page/stores",
+    iosIcon: restaurantOutline,
     mdIcon: archiveSharp,
   },
   {
-    title: "Trash",
-    url: "/page/Trash",
-    iosIcon: trashOutline,
+    title: "Sair",
+    url: "/page/logout",
+    iosIcon: logOutOutline,
     mdIcon: trashSharp,
   },
-  {
-    title: "Spam",
-    url: "/page/Spam",
-    iosIcon: warningOutline,
-    mdIcon: warningSharp,
-  },
 ];
-
-const labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -85,8 +74,8 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>Bem-vindo</IonListHeader>
+          <IonNote>Nome do usuário</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
@@ -105,16 +94,6 @@ const Menu: React.FC = () => {
               </IonMenuToggle>
             );
           })}
-        </IonList>
-
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
         </IonList>
       </IonContent>
     </IonMenu>

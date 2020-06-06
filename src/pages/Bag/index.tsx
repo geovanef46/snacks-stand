@@ -1,4 +1,3 @@
-import React from "react";
 import {
   IonButtons,
   IonContent,
@@ -8,17 +7,24 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import React from "react";
 import { useParams } from "react-router";
 
 import ExploreContainer from "../../components/ExploreContainer";
-// import "./styles.css";
 
-const Login: React.FC = () => {
+const Bag: React.FC = () => {
   const { name } = useParams<{ name: string }>();
 
   return (
     <IonPage>
-      <IonHeader></IonHeader>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>{name}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent>
         <IonHeader collapse="condense">
@@ -27,10 +33,10 @@ const Login: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-        <ExploreContainer name="Login" />
+        <ExploreContainer name="Minha Sacola" />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Login;
+export default Bag;
