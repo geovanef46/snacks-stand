@@ -37,31 +37,31 @@ interface AppPage {
 const appPages: AppPage[] = [
   {
     title: "Pedidos",
-    url: "/page/orders",
+    url: "/orders",
     iosIcon: clipboardOutline,
     mdIcon: mailSharp,
   },
   {
     title: "Favoritos",
-    url: "/page/favorites",
+    url: "/favorites",
     iosIcon: heartOutline,
     mdIcon: paperPlaneSharp,
   },
   {
     title: "Comentários",
-    url: "/page/coments",
+    url: "/comments",
     iosIcon: chatbubbleOutline,
     mdIcon: heartSharp,
   },
   {
     title: "Lanchonetes",
-    url: "/page/stores",
+    url: "/stores",
     iosIcon: restaurantOutline,
     mdIcon: archiveSharp,
   },
   {
     title: "Sair",
-    url: "/page/logout",
+    url: "/logout",
     iosIcon: logOutOutline,
     mdIcon: trashSharp,
   },
