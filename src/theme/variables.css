@@ -11,8 +11,8 @@ http://ionicframework.com/docs/theming/ */
   --ion-text-color-rgb: 128, 78, 22;
 
   /** primary **/
-  --ion-color-primary: #ff9b2b;
-  --ion-color-primary-rgb: 255, 155, 43;
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #fff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #3171e0;
