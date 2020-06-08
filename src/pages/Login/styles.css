@@ -1,0 +1,13 @@
+#page-login ion-input {
+  background: var(--ion-color-light);
+  color: var(--ion-color-dark);
+  z-index: -1;
+}
+
+#page-login ion-label {
+  color: var(--ion-color-dark);
+}
+
+#page-login ion-content {
+  --padding-start: 5px;
+}

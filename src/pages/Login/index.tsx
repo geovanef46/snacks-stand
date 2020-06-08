@@ -1,28 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonList,
+  IonItemDivider,
+  IonItem,
+  IonInput,
+  IonLabel,
 } from "@ionic/react";
-import { useParams } from "react-router";
 
-import ExploreContainer from "../../components/ExploreContainer";
+import "./styles.css";
 
 const Login: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
+  const [text, setText] = useState<string>();
+  const [number, setNumber] = useState<number>();
+
+  const [user, setUser] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
   return (
-    <IonPage>
+    <IonPage id="page-login">
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle size="large">Login</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{name}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <h1>Seja Bem-vindo</h1>
 
-        <ExploreContainer name="Login" />
+        {/* <IonList> */}
+        <IonItem>
+          <IonLabel position="stacked">Usuário</IonLabel>
+          <IonInput
+            value={user}
+            onIonChange={(e) => setUser(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Senha</IonLabel>
+          <IonInput
+            value={password}
+            onIonChange={(e) => setPassword(e.detail.value!)}
+            type="password"
+          ></IonInput>
+        </IonItem>
+
+        {/* <IonItem> */}
+        <IonButton color="dark">Login</IonButton>
+        {/* </IonItem> */}
+
+        {/* <IonItem> */}
+        <IonButton fill="outline" color="dark">
+          Cadastre-se
+        </IonButton>
+        {/* </IonItem> */}
+        {/* </IonList> */}
       </IonContent>
     </IonPage>
   );
