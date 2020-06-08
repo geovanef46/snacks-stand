@@ -4,19 +4,21 @@ import {
   IonToolbar,
   IonButtons,
   IonMenuButton,
-  IonTitle,
+  IonTitle
 } from "@ionic/react";
 
 const Header = () => {
   return (
-    <IonHeader>
+
+      <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonMenuButton />
+          <IonMenuButton autoHide={false}/>
         </IonButtons>
-        <IonTitle>Snaks</IonTitle>
+  <IonTitle>Snacks</IonTitle>
       </IonToolbar>
     </IonHeader>
+    
   );
 };
 

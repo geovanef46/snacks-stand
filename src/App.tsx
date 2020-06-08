@@ -36,6 +36,7 @@ import { person, search, basket } from "ionicons/icons";
 
 import Menu from "./components/Menu";
 
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Bag from "./pages/Bag";
@@ -51,9 +52,10 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
+        <IonSplitPane contentId="main" when="true">
 
+          <Menu/>
+  
           <IonTabs>
             <IonRouterOutlet id="main">
               <Redirect from="/" to="/page/Snaks" exact />
