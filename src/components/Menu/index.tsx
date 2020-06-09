@@ -10,6 +10,9 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
 } from "@ionic/react";
 
 import {
@@ -72,6 +75,12 @@ const Menu: React.FC = () => {
 
   return (
     <IonMenu contentId="main" type="overlay">
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Menu</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent>
         <IonList id="inbox-list">
           <IonListHeader>Bem-vindo</IonListHeader>

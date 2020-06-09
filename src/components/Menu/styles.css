@@ -1,5 +1,13 @@
 ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background: var(--ion-color-light);
+}
+
+ion-list#inbox-list ion-item {
+  --background: var(--ion-color-light);
+}
+
+ion-list#inbox-list {
+  background: var(--ion-color-light);
 }
 
 ion-menu.md ion-content {

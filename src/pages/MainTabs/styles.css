@@ -1,0 +1,12 @@
+/* ion-tab-bar {
+  --color: blue;
+} */
+
+ion-tab-button {
+  --background: var(--ion-color-light);
+  --color: var(--ion-color-dark);
+
+  --color-selected: var(--ion-color-tertiary);
+  --background-focused: var(--ion-color-dark);
+  --background-focused-opacity: 1;
+}

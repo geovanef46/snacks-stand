@@ -19,6 +19,8 @@ import Favorites from "../Favorites";
 import Comments from "../Comments";
 import Stores from "../Stores";
 
+import "./styles.css";
+
 const MainTabs = () => {
   return (
     <IonTabs>
@@ -42,7 +44,7 @@ const MainTabs = () => {
         <Route path="/stores" component={Stores} exact />
       </IonRouterOutlet>
 
-      <IonTabBar slot="bottom" color="light">
+      <IonTabBar slot="bottom">
         <IonTabButton tab="search" href="/search">
           <IonIcon icon={search} />
           <IonLabel>Pesquisar</IonLabel>
