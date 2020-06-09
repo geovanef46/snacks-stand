@@ -23,7 +23,7 @@ const Login: React.FC = () => {
 
   const handleOnClick = () => {
     console.log("Conferir login");
-    history.push("/bag");
+    history.push("/home");
   };
 
   return (

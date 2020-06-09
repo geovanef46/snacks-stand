@@ -12,7 +12,7 @@ import ExploreContainer from "../../components/ExploreContainer";
 import "./styles.css";
 import Header from "../../components/Header";
 
-const Page: React.FC = () => {
+const Home: React.FC = () => {
   const { name } = useParams<{ name: string }>();
 
   return (
@@ -32,4 +32,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+export default Home;
