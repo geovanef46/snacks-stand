@@ -1,65 +1,122 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonButton,
-  IonList,
-  IonItemDivider,
-  IonItem,
   IonInput,
   IonLabel,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 
 import "./styles.css";
+import Alert from "../../components/Alert";
 
 const Login: React.FC = () => {
-  const [text, setText] = useState<string>();
-  const [number, setNumber] = useState<number>();
+  const [user, setUser] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
-  const [user, setUser] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const history = useHistory();
+
+  const handleOnClick = () => {
+    console.log("Conferir login");
+    history.push("/bag");
+  };
 
   return (
     <IonPage id="page-login">
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle size="large">Login</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
-        <h1>Seja Bem-vindo</h1>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <h1>Seja Bem-vindo</h1>
+            </IonCol>
+          </IonRow>
 
-        {/* <IonList> */}
-        <IonItem>
-          <IonLabel position="stacked">Usuário</IonLabel>
-          <IonInput
-            value={user}
-            onIonChange={(e) => setUser(e.detail.value!)}
-          ></IonInput>
-        </IonItem>
+          <IonRow>
+            <IonCol>
+              <IonLabel position="stacked">Usuário</IonLabel>
+              <IonInput
+                value={user}
+                onIonChange={(e) => setUser(e.detail.value!)}
+              />
+            </IonCol>
+          </IonRow>
 
-        <IonItem>
-          <IonLabel position="stacked">Senha</IonLabel>
-          <IonInput
-            value={password}
-            onIonChange={(e) => setPassword(e.detail.value!)}
-            type="password"
-          ></IonInput>
-        </IonItem>
+          <IonRow>
+            <IonCol>
+              <IonLabel position="stacked">Senha</IonLabel>
+              <IonInput
+                value={password}
+                onIonChange={(e) => setPassword(e.detail.value!)}
+                type="password"
+              />
+            </IonCol>
+          </IonRow>
 
-        {/* <IonItem> */}
-        <IonButton color="dark">Login</IonButton>
-        {/* </IonItem> */}
+          <IonRow>
+            <IonCol>
+              <IonButton
+                color="dark"
+                className="center"
+                onClick={handleOnClick}
+              >
+                Login
+              </IonButton>
+            </IonCol>
+          </IonRow>
 
-        {/* <IonItem> */}
-        <IonButton fill="outline" color="dark">
-          Cadastre-se
-        </IonButton>
-        {/* </IonItem> */}
-        {/* </IonList> */}
+          <IonRow>
+            <IonCol>
+              <IonButton
+                fill="clear"
+                size="small"
+                color="dark"
+                className="center"
+                onClick={() => setShowAlert(true)}
+              >
+                Esqueceu a senha?
+              </IonButton>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol>
+              <IonButton
+                expand="block"
+                fill="outline"
+                color="dark"
+                className="center"
+                onClick={handleOnClick}
+              >
+                Cadastre-se
+              </IonButton>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol>
+              <IonButton
+                fill="clear"
+                color="dark"
+                className="center"
+                routerLink="/home"
+              >
+                Ou acesse como convidado
+              </IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+
+        <Alert
+          header={"Recuperar senha!"}
+          message={"Recuperar senha!"}
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+        />
       </IonContent>
     </IonPage>
   );

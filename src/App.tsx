@@ -37,7 +37,6 @@ import { person, search, basket } from "ionicons/icons";
 
 import Menu from "./components/Menu";
 
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Bag from "./pages/Bag";
@@ -54,14 +53,13 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main" when="true">
+          <Menu />
 
-          <Menu/>
-  
           <IonTabs>
             <IonRouterOutlet id="main">
               <Redirect from="/" to="/page/Snaks" exact />
 
-              <Route path="/page/:name" component={Home} exact />
+              <Route path="/home" component={Home} exact />
               <Route path="/login" component={Login} exact />
               <Route path="/bag" component={Bag} exact />
               <Route
@@ -80,16 +78,16 @@ const App: React.FC = () => {
               <Route path="/logout" component={Logout} exact />
             </IonRouterOutlet>
 
-            <IonTabBar slot="bottom">
+            <IonTabBar slot="bottom" color="light">
               <IonTabButton tab="search" href="/search">
                 <IonIcon icon={search} />
                 <IonLabel>Pesquisar</IonLabel>
-                {/* <IonBadge>6</IonBadge> */}
               </IonTabButton>
 
               <IonTabButton tab="bag" href="/bag">
                 <IonIcon icon={basket} />
                 <IonLabel>Sacola</IonLabel>
+                <IonBadge>3</IonBadge>
               </IonTabButton>
 
               <IonTabButton
