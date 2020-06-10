@@ -97,7 +97,7 @@ const Menu: React.FC = () => {
                   lines="none"
                   detail={false}
                 >
-                  <IonIcon slot="start" icon={appPage.iosIcon} />
+                  <IonIcon slot="start" icon={appPage.iosIcon} color="dark" />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
