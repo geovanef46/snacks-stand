@@ -1,5 +1,6 @@
 import React from "react";
 import { IonLabel, IonItem, IonAvatar } from "@ionic/react";
+import { useHistory } from "react-router-dom";
 
 import Store from "../../models/Store";
 import ShowRating from "../ShowRating";
@@ -10,8 +11,20 @@ type StoreItemParams = {
 };
 
 const StoreItem = ({ store }: StoreItemParams) => {
+  const history = useHistory();
+
+  const handleClick = (id: number) => {
+    history.push(`/stores/${id}`);
+  };
+
   return (
-    <IonItem color="light" lines="none" button={true} className="store-item">
+    <IonItem
+      color="light"
+      lines="none"
+      button={true}
+      className="store-item"
+      onClick={() => handleClick(store.id)}
+    >
       <IonAvatar slot="start">
         <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
       </IonAvatar>
