@@ -1,16 +1,14 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
 import React from "react";
+import { IonPage } from "@ionic/react";
+
+import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import { useParams } from "react-router";
 
-import ExploreContainer from "../../components/ExploreContainer";
-import "./styles.css";
 import Header from "../../components/Header";
+import Title from "../../components/Title";
+
+import "leaflet/dist/leaflet.css";
+import "./styles.css";
 
 const Home: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -19,15 +17,24 @@ const Home: React.FC = () => {
     <IonPage>
       <Header />
 
-      <IonContent>
-        <IonHeader collapse="condense">
+      <Map center={[51.505, -0.09]} zoom={13}>
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[-6.985344, -36.241385]} />
+      </Map>
+
+      {/* <IonContent>
+        <Title title="Seja bem-vindo" /> */}
+
+      {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">{name}</IonTitle>
           </IonToolbar>
         </IonHeader>
-
-        <ExploreContainer name="Página inicial" />
-      </IonContent>
+        <ExploreContainer name="Página inicial" /> */}
+      {/* </IonContent> */}
     </IonPage>
   );
 };
