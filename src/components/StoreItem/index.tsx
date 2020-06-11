@@ -11,7 +11,7 @@ type StoreItemParams = {
 
 const StoreItem = ({ store }: StoreItemParams) => {
   return (
-    <IonItem color="light" lines="none" button={true}>
+    <IonItem color="light" lines="none" button={true} className="store-item">
       <IonAvatar slot="start">
         <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
       </IonAvatar>
