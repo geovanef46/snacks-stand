@@ -8,17 +8,18 @@ import {
   IonItemOptions,
   IonIcon,
 } from "@ionic/react";
-import { basket, trash } from "ionicons/icons";
+import { basket, trash, heart } from "ionicons/icons";
 
 import Snack from "../../models/Snack";
 import "./styles.css";
 
 type SnackItemParams = {
   snack: Snack;
+  isAdd: boolean; // To add in favorites or not -> verify after
   removeSnack: (id: number) => void;
 };
 
-const SnackItem = ({ snack, removeSnack }: SnackItemParams) => {
+const SnackItem = ({ snack, removeSnack, isAdd }: SnackItemParams) => {
   const itemSlidingRef = useRef<HTMLIonItemSlidingElement>(null);
 
   return (
@@ -44,15 +45,27 @@ const SnackItem = ({ snack, removeSnack }: SnackItemParams) => {
         </IonItemOptions>
 
         <IonItemOptions side="end">
-          <IonItemOption
-            color="danger"
-            onClick={() => {
-              removeSnack(snack.id);
-              itemSlidingRef?.current?.closeOpened();
-            }}
-          >
-            <IonIcon icon={trash} slot="icon-only" />
-          </IonItemOption>
+          {isAdd ? (
+            <IonItemOption
+              color="success"
+              onClick={() => {
+                // removeSnack(snack.id);
+                itemSlidingRef?.current?.closeOpened();
+              }}
+            >
+              <IonIcon icon={heart} slot="icon-only" />
+            </IonItemOption>
+          ) : (
+            <IonItemOption
+              color="danger"
+              onClick={() => {
+                removeSnack(snack.id);
+                itemSlidingRef?.current?.closeOpened();
+              }}
+            >
+              <IonIcon icon={trash} slot="icon-only" />
+            </IonItemOption>
+          )}
         </IonItemOptions>
       </IonItemSliding>
     </div>

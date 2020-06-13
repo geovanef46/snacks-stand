@@ -8,13 +8,14 @@ type ShowRatingParams = {
 
 const ShowRating = ({ starRate }: ShowRatingParams) => {
   const getRate = () => {
-    const a = [];
+    let a = [];
+    let i = 0;
 
-    for (let i = 0; i < Math.floor(starRate); i++) {
-      a.push(<IonIcon slot="end" icon={star} color="dark" />);
+    for (i = 0; i < Math.floor(starRate); i++) {
+      a.push(<IonIcon slot="end" icon={star} color="dark" key={i} />);
     }
     if (starRate % 1 !== 0) {
-      a.push(<IonIcon slot="end" icon={starHalf} color="dark" />);
+      a.push(<IonIcon slot="end" icon={starHalf} color="dark" key={i} />);
     }
     return a;
   };

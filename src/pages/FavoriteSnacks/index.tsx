@@ -62,7 +62,12 @@ const FavoriteSnacks = () => {
 
         {snacks.map((value, index) => {
           return (
-            <SnackItem snack={value} key={index} removeSnack={removeSnack} />
+            <SnackItem
+              snack={value}
+              key={index}
+              removeSnack={removeSnack}
+              isAdd={false}
+            />
           );
         })}
       </IonContent>

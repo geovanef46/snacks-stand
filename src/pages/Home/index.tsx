@@ -17,7 +17,7 @@ const Home: React.FC = () => {
     <IonPage>
       <Header />
 
-      <Map center={[51.505, -0.09]} zoom={13}>
+      <Map center={[-6.9929002, -36.242569]} zoom={15}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
