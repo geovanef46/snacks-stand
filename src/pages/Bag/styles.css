@@ -1,0 +1,12 @@
+.bag-infos {
+  border-style: solid;
+}
+
+.bag-infos p {
+  margin: 0;
+  text-align: center;
+}
+
+.slide-button-container {
+  margin: 10px 0;
+}
