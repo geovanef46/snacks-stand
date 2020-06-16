@@ -7,7 +7,6 @@ import {
   IonRow,
   IonCol,
 } from "@ionic/react";
-import { useParams } from "react-router";
 
 import Header from "../../components/Header";
 import ShowRating from "../../components/ShowRating";
@@ -48,7 +47,7 @@ const defaultSnacks: Snack[] = [
 ];
 
 const StoreDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  
 
   const [snacks, setSnacks] = useState<Snack[]>(defaultSnacks);
 

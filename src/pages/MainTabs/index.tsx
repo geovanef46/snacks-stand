@@ -19,6 +19,7 @@ import FavoriteSnacks from "../FavoriteSnacks";
 import Comments from "../Comments";
 import Stores from "../Stores";
 import StoreDetails from "../StoreDetails";
+import Snacks from "../Snacks";
 
 import "./styles.css";
 
@@ -44,6 +45,7 @@ const MainTabs = () => {
         <Route path="/comments" component={Comments} exact />
         <Route path="/stores" component={Stores} exact />
         <Route path="/stores/:id" component={StoreDetails} exact />
+        <Route path="/search/:id" component={Snacks} exact />
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom">
