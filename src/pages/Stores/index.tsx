@@ -74,9 +74,9 @@ const Stores = () => {
         />
 
         <IonInfiniteScroll>
-          {stores.map((value, index) => {
-            return <StoreItem store={value} key={index} />;
-          })}
+        {stores.filter(item => item.name.includes(searchText)).map((value,index) => (
+      <StoreItem store={value} key={index} /> 
+  ))}
           <IonInfiniteScrollContent
             loadingSpinner="bubbles"
             loadingText="Carregando dados..."
