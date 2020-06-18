@@ -52,7 +52,7 @@ const Search = () => {
       </IonHeader>
     
       <IonContent >
-      {snacks.filter(item => item.name.includes(searchText)).map((value,index) => (
+      {snacks.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase())).map((value,index) => (
       <SnackItem snack={value} key={index} isAdd={false} removeSnack={() => console.log(`Remove item${value.id}`)} /> 
   ))}
         
