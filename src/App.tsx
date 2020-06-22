@@ -29,6 +29,7 @@ import Menu from "./components/Menu";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import MainTabs from "./pages/MainTabs";
+import RegisterUser from "./pages/RegisterUser";
 
 const App: React.FC = () => {
   return (
@@ -37,10 +38,11 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main" when="true">
           <Menu />
           <IonRouterOutlet id="main">
-            <Redirect from="/" to="/home" exact />
+            <Redirect from="/" to="/login" exact />
 
             <Route path="/login" component={Login} exact />
             <Route path="/logout" component={Logout} exact />
+            <Route path="/register-user" component={RegisterUser} exact />
             <Route path="/" component={MainTabs} />
           </IonRouterOutlet>
         </IonSplitPane>

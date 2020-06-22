@@ -22,6 +22,7 @@ import StoreDetails from "../StoreDetails";
 import Snacks from "../Snacks";
 
 import "./styles.css";
+import Profile from "../Profile";
 
 const MainTabs = () => {
   return (
@@ -30,8 +31,7 @@ const MainTabs = () => {
         <Route path="/home" component={Home} exact />
         <Route path="/search" component={Search} exact />
         <Route path="/bag" component={Bag} exact />
-        {/* Apenas para teste do login */}
-        <Redirect path="/profile" to="/login" exact />
+        <Route path="/profile" component={Profile} exact />
         {/* <Route
           path="/tabs/profile"
           component={Profile}

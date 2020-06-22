@@ -90,7 +90,7 @@ const Login: React.FC = () => {
                 fill="outline"
                 color="dark"
                 className="center"
-                onClick={handleOnClick}
+                onClick={() => history.push("/register-user")}
               >
                 Cadastre-se
               </IonButton>
