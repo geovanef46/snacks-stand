@@ -1,0 +1,8 @@
+#register-user-container ion-input {
+  background: var(--ion-color-light);
+  color: var(--ion-color-dark);
+}
+
+#register-user-container ion-select {
+  background: var(--ion-color-light);
+}
