@@ -74,7 +74,7 @@ const Stores = () => {
         />
 
         <IonInfiniteScroll>
-        {stores.filter(item => item.name.includes(searchText)).map((value,index) => (
+        {stores.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase())).map((value,index) => (
       <StoreItem store={value} key={index} /> 
   ))}
           <IonInfiniteScrollContent
