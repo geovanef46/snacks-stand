@@ -1,65 +1,79 @@
 import React, { useState } from "react";
-import { IonPage, IonContent, IonToolbar, IonSearchbar, IonHeader} from "@ionic/react";
+import {
+  IonPage,
+  IonContent,
+  IonToolbar,
+  IonSearchbar,
+  IonHeader,
+  IonText,
+} from "@ionic/react";
+import { gql } from "apollo-boost";
+import { useQuery } from "@apollo/react-hooks";
 
 import Snack from "../../models/Snack";
 import SnackItem from "../../components/SnackItem";
 
-
-const snacks: Snack[] = [
+const GET_SNACKS = gql`
   {
-      id: 1,
-      name: "Pastel de Frango",
-      description: "Pastel de frango katupiry",
-    },
-    {
-      id: 2,
-      name: "Hamburger",
-      description: "Hamburger de frango ",
-    },
-    {
-      id: 3,
-      name: "Asinha de Frango",
-      description: "Asinha de frango ",
-    },
-    {
-      id: 4,
-      name: "Churrasco de Frango",
-      description: "Churrasco de frango ",
-    },
-    {
-      id: 5,
-      name: "Creme de Frango",
-      description: "Creme de frango ",
-    },
-    {
-      id: 6,
-      name: "Especial de Frango",
-      description: "Especial de frango ",
+    snacks {
+      id
+      name
+      description
     }
-];
-
+  }
+`;
 
 const Search = () => {
   const [searchText, setSearchText] = useState("");
+
+  const { loading, error, data } = useQuery(GET_SNACKS);
+
   return (
     <IonPage>
-      <IonHeader >
+      <IonHeader>
         <IonToolbar>
-        <IonSearchbar color="light"  value={searchText} placeholder="O que você deseja?" autocomplete="on" 
-      onIonChange={e => setSearchText(e.detail.value!)} showCancelButton="focus" animated>
-      </IonSearchbar>
+          <IonSearchbar
+            color="light"
+            value={searchText}
+            placeholder="O que você deseja?"
+            autocomplete="on"
+            onIonChange={(e) => setSearchText(e.detail.value!)}
+            showCancelButton="focus"
+            animated
+          ></IonSearchbar>
         </IonToolbar>
       </IonHeader>
-    
-      <IonContent >
-      {snacks.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase())).map((value,index) => (
-      <SnackItem snack={value} key={index} isAdd={false} removeSnack={() => console.log(`Remove item${value.id}`)} /> 
-  ))}
-        
+
+      <IonContent>
+        {loading ? (
+          <IonText>loading...</IonText>
+        ) : error ? (
+          <IonText>Houve um erro...</IonText>
+        ) : (
+          data.snacks.map((snack: Snack) => (
+            <SnackItem
+              snack={snack}
+              key={snack.id}
+              isAdd={false}
+              removeSnack={() => console.log(`Remove item${snack.id}`)}
+            />
+          ))
+        )}
+        {/* {snacks
+          .filter((item) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase())
+          )
+          .map((value, index) => (
+            <SnackItem
+              snack={value}
+              key={index}
+              isAdd={false}
+              removeSnack={() => console.log(`Remove item${value.id}`)}
+            />
+          ))} */}
       </IonContent>
     </IonPage>
   );
-  
 };
 
 export default Search;
