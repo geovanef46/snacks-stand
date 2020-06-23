@@ -13,9 +13,10 @@ import {
   IonSelectOption,
 } from "@ionic/react";
 import axios from "axios";
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 import Title from "../../components/Title";
-
 import "./styles.css";
 
 interface UFResponse {
@@ -27,6 +28,26 @@ interface CityResponse {
   nome: string;
 }
 
+const CREATE_USER = gql`
+  mutation CreateUser(
+    $name: String!
+    $phone: String!
+    $username: String!
+    $password: String!
+    $address: AddressInput!
+  ) {
+    createUser(
+      name: $name
+      phone: $phone
+      username: $username
+      password: $password
+      address: $address
+    ) {
+      id
+    }
+  }
+`;
+
 const RegisterUser = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -36,6 +57,7 @@ const RegisterUser = () => {
 
   const [street, setStreet] = useState("");
   const [number, setNumber] = useState("");
+  const [complement, setComplement] = useState("");
   const [district, setDistrict] = useState("");
   const [stateSelected, setStateSelected] = useState("");
   const [citySelected, setCitySelected] = useState("");
@@ -63,9 +85,27 @@ const RegisterUser = () => {
       });
   }, [stateSelected]);
 
+  const [createUser, { data }] = useMutation(CREATE_USER);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    alert(citySelected);
+    createUser({
+      variables: {
+        name,
+        phone,
+        username,
+        password,
+        address: {
+          street,
+          number: parseInt(number),
+          district,
+          complement,
+          state: stateSelected,
+          city: citySelected,
+        },
+      },
+    });
+    alert("Registrado...");
   };
 
   return (
@@ -121,6 +161,15 @@ const RegisterUser = () => {
             </IonRow>
             <IonRow>
               <IonCol>
+                <IonLabel position="stacked">Complemento</IonLabel>
+                <IonInput
+                  value={complement}
+                  onIonChange={(e) => setComplement(e.detail.value!)}
+                />
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
                 <IonLabel position="stacked">Bairro</IonLabel>
                 <IonInput
                   value={district}
@@ -137,7 +186,7 @@ const RegisterUser = () => {
                   onIonChange={(e) => setStateSelected(e.detail.value)}
                 >
                   {states.map((uf) => (
-                    <IonSelectOption value={uf.sigla}>
+                    <IonSelectOption value={uf.sigla} key={uf.sigla}>
                       {uf.nome}
                     </IonSelectOption>
                   ))}
@@ -153,7 +202,7 @@ const RegisterUser = () => {
                   onIonChange={(e) => setCitySelected(e.detail.value)}
                 >
                   {cities.map((city) => (
-                    <IonSelectOption value={city.nome}>
+                    <IonSelectOption value={city.nome} key={city.nome}>
                       {city.nome}
                     </IonSelectOption>
                   ))}
