@@ -12,14 +12,16 @@ import { add, remove } from "ionicons/icons";
 
 import ItemOrder from "../../models/ItemOrder";
 import "./styles.css";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { alterAmountItem } from "../../store/action/bag";
 
 type ItemProps = {
+  dispatch: Dispatch;
   item: ItemOrder;
 };
 
-const ItemBag: React.FC<ItemProps> = ({ item }) => {
-  const [amountState, setAmountState] = useState(item.amount);
-
+const ItemBag = ({ item, dispatch }: ItemProps) => {
   return (
     <IonItem color="light" className="item-bag">
       <IonGrid>
@@ -30,16 +32,30 @@ const ItemBag: React.FC<ItemProps> = ({ item }) => {
           </IonCol>
           <IonCol size="3">
             <IonButton
-              onClick={() => setAmountState(amountState + 1)}
+              onClick={() =>
+                dispatch(
+                  alterAmountItem({
+                    ...item,
+                    amount: item.amount + 1,
+                  })
+                )
+              }
               color="dark"
             >
               <IonIcon slot="icon-only" icon={add} />
             </IonButton>
             <div className="div-amount">
-              <p>{amountState}</p>
+              <p>{item.amount}</p>
             </div>
             <IonButton
-              onClick={() => setAmountState(amountState - 1)}
+              onClick={() =>
+                dispatch(
+                  alterAmountItem({
+                    ...item,
+                    amount: item.amount - 1,
+                  })
+                )
+              }
               color="dark"
             >
               <IonIcon slot="icon-only" icon={remove} />
@@ -51,4 +67,4 @@ const ItemBag: React.FC<ItemProps> = ({ item }) => {
   );
 };
 
-export default ItemBag;
+export default connect()(ItemBag);

@@ -63,7 +63,9 @@ const MainTabs = ({ countItemsBag }: MainParams) => {
         <IonTabButton tab="bag" href="/bag">
           <IonIcon icon={basket} />
           <IonLabel>Sacola</IonLabel>
-          <IonBadge color="danger">{countItemsBag}</IonBadge>
+          {countItemsBag > 0 && (
+            <IonBadge color="danger">{countItemsBag}</IonBadge>
+          )}
         </IonTabButton>
 
         <IonTabButton tab="profile" href="/profile">
