@@ -18,37 +18,41 @@ const defaultSnacks: Snack[] = [
     id: 1,
     name: "Pastel de Frango",
     description: "Pastel de frango katupiry",
+    price: 4,
   },
   {
     id: 2,
     name: "Pastel de Frango",
     description: "Pastel de frango katupiry",
+    price: 4,
   },
   {
     id: 3,
     name: "Pastel de Frango",
     description: "Pastel de frango katupiry",
+    price: 4,
   },
   {
     id: 4,
     name: "Pastel de Frango",
     description: "Pastel de frango katupiry",
+    price: 4,
   },
   {
     id: 5,
     name: "Pastel de Frango",
     description: "Pastel de frango katupiry",
+    price: 4,
   },
   {
     id: 6,
     name: "Pastel de Frango",
     description: "Pastel de frango katupiry",
+    price: 4,
   },
 ];
 
 const StoreDetails = () => {
-  
-
   const [snacks, setSnacks] = useState<Snack[]>(defaultSnacks);
 
   return (

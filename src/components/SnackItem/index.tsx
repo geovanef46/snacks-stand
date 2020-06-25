@@ -10,18 +10,28 @@ import {
 } from "@ionic/react";
 import { basket, trash, heart } from "ionicons/icons";
 import { useHistory, useParams } from "react-router-dom";
+import { connect } from "react-redux";
+
 import Snack from "../../models/Snack";
 import "./styles.css";
+import { Dispatch } from "redux";
+import { addItem } from "../../store/action/bag";
 
 type SnackItemParams = {
+  dispatch: Dispatch;
   snack: Snack;
   isAdd: boolean; // To add in favorites or not -> verify after
   removeSnack: (id: number) => void;
 };
 
-const SnackItem = ({ snack, removeSnack, isAdd }: SnackItemParams) => {
+const SnackItem = ({
+  dispatch,
+  snack,
+  removeSnack,
+  isAdd,
+}: SnackItemParams) => {
   const { id } = useParams<{ id: string }>();
-  
+
   const itemSlidingRef = useRef<HTMLIonItemSlidingElement>(null);
 
   const history = useHistory();
@@ -31,9 +41,14 @@ const SnackItem = ({ snack, removeSnack, isAdd }: SnackItemParams) => {
   };
 
   return (
-    <div  className="snack-item">
+    <div className="snack-item">
       <IonItemSliding className="snack-item" ref={itemSlidingRef}>
-        <IonItem  onClick={() => handleClick(snack.id)} color="light" lines="none" button={true}>
+        <IonItem
+          onClick={() => handleClick(snack.id)}
+          color="light"
+          lines="none"
+          button={true}
+        >
           <IonAvatar slot="start">
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
           </IonAvatar>
@@ -46,7 +61,15 @@ const SnackItem = ({ snack, removeSnack, isAdd }: SnackItemParams) => {
           <IonItemOption
             color="dark"
             expandable
-            onClick={() => console.log("Add to cart item")}
+            onClick={() => {
+              dispatch(
+                addItem({
+                  amount: 1,
+                  snack,
+                  price: snack.price,
+                })
+              );
+            }}
           >
             <IonIcon icon={basket} slot="icon-only" />
           </IonItemOption>
@@ -80,4 +103,4 @@ const SnackItem = ({ snack, removeSnack, isAdd }: SnackItemParams) => {
   );
 };
 
-export default SnackItem;
+export default connect()(SnackItem);
