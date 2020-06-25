@@ -23,8 +23,14 @@ import Snacks from "../Snacks";
 
 import "./styles.css";
 import Profile from "../Profile";
+import { connect } from "react-redux";
+import { StateType } from "../../store";
 
-const MainTabs = () => {
+type MainParams = {
+  countItemsBag: number;
+};
+
+const MainTabs = ({ countItemsBag }: MainParams) => {
   return (
     <IonTabs>
       <IonRouterOutlet>
@@ -57,7 +63,7 @@ const MainTabs = () => {
         <IonTabButton tab="bag" href="/bag">
           <IonIcon icon={basket} />
           <IonLabel>Sacola</IonLabel>
-          <IonBadge>3</IonBadge>
+          <IonBadge color="danger">{countItemsBag}</IonBadge>
         </IonTabButton>
 
         <IonTabButton tab="profile" href="/profile">
@@ -69,4 +75,10 @@ const MainTabs = () => {
   );
 };
 
-export default MainTabs;
+const mapStateToProps = (state: StateType) => {
+  return {
+    countItemsBag: state.bag.items.length,
+  };
+};
+
+export default connect(mapStateToProps)(MainTabs);

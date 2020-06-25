@@ -1,4 +1,5 @@
 import { SET_USER } from "../actionTypes";
+import { Action } from "..";
 
 export interface UserStateType {
   id: string;
@@ -10,11 +11,6 @@ const initialState: UserStateType = {
   id: "",
   name: "",
   token: "",
-};
-
-type Action = {
-  type: string;
-  payload: any;
 };
 
 export default function user(state = initialState, action: Action) {

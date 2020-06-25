@@ -19,40 +19,20 @@ import Title from "../../components/Title";
 import ItemOrder from "../../models/ItemOrder";
 import ItemBag from "../../components/ItemBag";
 import "./styles.css";
-
-const items: ItemOrder[] = [
-  {
-    amount: 2,
-    snack: {
-      id: 1,
-      description: "Um pastel de frango saboroso",
-      name: "Pastel de frango",
-    },
-  },
-  {
-    amount: 3,
-    snack: {
-      id: 2,
-      description: "Um pastel de frango saboroso",
-      name: "Pastel de frango",
-    },
-  },
-  {
-    amount: 3,
-    snack: {
-      id: 2,
-      description: "Um pastel de frango saboroso",
-      name: "Pastel de frango",
-    },
-  },
-];
+import { connect } from "react-redux";
+import { StateType } from "../../store";
 
 type Position = {
   x: number;
   y: number;
 };
 
-const Bag: React.FC = () => {
+type BagParams = {
+  items: Array<ItemOrder>;
+  totalValue: number;
+};
+
+const Bag = ({ items, totalValue }: BagParams) => {
   const { name } = useParams<{ name: string }>();
 
   return (
@@ -70,10 +50,10 @@ const Bag: React.FC = () => {
             <IonRow className="ion-align-items-center">
               <IonCol>
                 <p>VALOR TOTAL</p>
-                <p>R$ 20,00</p>
+                <p>R$ {totalValue}</p>
               </IonCol>
               <IonCol>
-                <p>10 itens</p>
+                <p>{items.length} itens</p>
               </IonCol>
             </IonRow>
           </IonGrid>
@@ -97,4 +77,13 @@ const Bag: React.FC = () => {
   );
 };
 
-export default Bag;
+const mapStateToProps = (state: StateType) => {
+  return {
+    items: state.bag.items,
+    totalValue: state.bag.items.reduce((total, item) => {
+      return total + item.amount * item.price;
+    }, 0),
+  };
+};
+
+export default connect(mapStateToProps)(Bag);
