@@ -3,6 +3,7 @@ import { SET_USER } from "../actionTypes";
 
 type User = {
   id: string;
+  name: string;
   token: string;
 };
 

@@ -29,12 +29,18 @@ import {
 } from "ionicons/icons";
 
 import "./styles.css";
+import { connect } from "react-redux";
+import { StateType } from "../../store";
 
 interface AppPage {
   url: string;
   iosIcon: string;
   mdIcon: string;
   title: string;
+}
+
+interface MenuParams {
+  userName: string;
 }
 
 const appPages: AppPage[] = [
@@ -70,7 +76,7 @@ const appPages: AppPage[] = [
   },
 ];
 
-const Menu: React.FC = () => {
+const Menu = ({ userName }: MenuParams) => {
   const location = useLocation();
 
   return (
@@ -84,7 +90,7 @@ const Menu: React.FC = () => {
       <IonContent>
         <IonList id="inbox-list">
           <IonListHeader>Bem-vindo</IonListHeader>
-          <IonNote>Nome do usuário</IonNote>
+          <IonNote>{userName}</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
@@ -109,4 +115,10 @@ const Menu: React.FC = () => {
   );
 };
 
-export default Menu;
+const mapStateToProps = (state: StateType) => {
+  return {
+    userName: state.user.name,
+  };
+};
+
+export default connect(mapStateToProps)(Menu);

@@ -58,6 +58,7 @@ const Login = ({ dispatch, user }: LoginParams) => {
         dispatch(
           setUser({
             id: data.login.user.id,
+            name: data.login.user.name,
             token: data.login.token,
           })
         );

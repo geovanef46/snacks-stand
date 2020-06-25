@@ -1,12 +1,14 @@
 import { SET_USER } from "../actionTypes";
 
 export interface UserStateType {
-  user: string;
+  id: string;
+  name: string;
   token: string;
 }
 
 const initialState: UserStateType = {
-  user: "",
+  id: "",
+  name: "",
   token: "",
 };
 
@@ -20,7 +22,8 @@ export default function user(state = initialState, action: Action) {
     case SET_USER:
       return {
         ...state,
-        user: action.payload.id,
+        id: action.payload.id,
+        name: action.payload.name,
         token: action.payload.token,
       };
     default:
