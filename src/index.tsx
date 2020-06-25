@@ -1,9 +1,11 @@
 import React from "react";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 
 import App from "./App";
+import store from "./store";
 import * as serviceWorker from "./serviceWorker";
 
 const client = new ApolloClient({
@@ -13,7 +15,9 @@ const client = new ApolloClient({
 
 const Root = () => (
   <ApolloProvider client={client}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApolloProvider>
 );
 
