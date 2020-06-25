@@ -19,6 +19,8 @@ const stores: Store[] = [
     description:
       "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
     stars: 4,
+    phone: "131312",
+    available: true,
   },
   {
     id: 2,
@@ -26,6 +28,8 @@ const stores: Store[] = [
     description:
       "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
     stars: 4.5,
+    phone: "131312",
+    available: true,
   },
   {
     id: 3,
@@ -33,6 +37,8 @@ const stores: Store[] = [
     description:
       "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
     stars: 3,
+    phone: "131312",
+    available: true,
   },
   {
     id: 4,
@@ -40,6 +46,8 @@ const stores: Store[] = [
     description:
       "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
     stars: 4,
+    phone: "131312",
+    available: true,
   },
   {
     id: 5,
@@ -47,6 +55,8 @@ const stores: Store[] = [
     description:
       "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
     stars: 4.5,
+    phone: "131312",
+    available: true,
   },
   {
     id: 6,
@@ -54,6 +64,8 @@ const stores: Store[] = [
     description:
       "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
     stars: 3,
+    phone: "131312",
+    available: true,
   },
 ];
 
@@ -74,9 +86,13 @@ const Stores = () => {
         />
 
         <IonInfiniteScroll>
-        {stores.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase())).map((value,index) => (
-      <StoreItem store={value} key={index} /> 
-  ))}
+          {stores
+            .filter((item) =>
+              item.name.toLowerCase().includes(searchText.toLowerCase())
+            )
+            .map((value, index) => (
+              <StoreItem store={value} key={index} />
+            ))}
           <IonInfiniteScrollContent
             loadingSpinner="bubbles"
             loadingText="Carregando dados..."

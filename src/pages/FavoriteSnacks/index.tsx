@@ -5,6 +5,7 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/react";
+import gql from "graphql-tag";
 
 import Header from "../../components/Header";
 import Title from "../../components/Title";
@@ -12,53 +13,58 @@ import Snack from "../../models/Snack";
 import SnackItem from "../../components/SnackItem";
 
 import "./styles.css";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { connect } from "react-redux";
+import { StateType } from "../../store";
 
-const defaultSnacks: Snack[] = [
-  {
-    id: 1,
-    name: "Pastel de Frango",
-    description: "Pastel de frango katupiry",
-    price: 4,
-  },
-  {
-    id: 2,
-    name: "Pastel de Frango",
-    description: "Pastel de frango katupiry",
-    price: 4,
-  },
-  {
-    id: 3,
-    name: "Pastel de Frango",
-    description: "Pastel de frango katupiry",
-    price: 4,
-  },
-  {
-    id: 4,
-    name: "Pastel de Frango",
-    description: "Pastel de frango katupiry",
-    price: 4,
-  },
-  {
-    id: 5,
-    name: "Pastel de Frango",
-    description: "Pastel de frango katupiry",
-    price: 4,
-  },
-  {
-    id: 6,
-    name: "Pastel de Frango",
-    description: "Pastel de frango katupiry",
-    price: 4,
-  },
-];
+const GET_FAVORITE_SNACKS = gql`
+  query GetFavoriteSnacks($id: ID!) {
+    user(id: $id) {
+      favorites {
+        id
+        name
+        description
+        price
+      }
+    }
+  }
+`;
 
-const FavoriteSnacks = () => {
-  const [snacks, setSnacks] = useState<Snack[]>(defaultSnacks);
+const REMOVE_FAVORITE_SNACK = gql`
+  mutation RemoveFavoriteSnack($userId: ID!, $snackId: ID!) {
+    removeFavorite(user_id: $userId, snack_id: $snackId)
+  }
+`;
 
-  const removeSnack = (id: number) => {
-    const newSnacks = snacks.filter((value) => value.id !== id);
-    setSnacks(newSnacks);
+type FavoriteSnacksParams = {
+  userId: number;
+};
+
+const FavoriteSnacks = ({ userId }: FavoriteSnacksParams) => {
+  // const [snacks, setSnacks] = useState<Snack[]>(defaultSnacks);
+
+  const [removeFavorite] = useMutation(REMOVE_FAVORITE_SNACK);
+
+  const removeSnack = (snackId: number) => {
+    removeFavorite({
+      variables: {
+        userId,
+        snackId,
+      },
+    })
+      .then(({ data }) => {
+        if (data.removeFavorite) {
+          alert("Removido com sucesso");
+        }
+      })
+      .catch((err) => console.log(err));
   };
+
+  const { loading, error, data } = useQuery(GET_FAVORITE_SNACKS, {
+    variables: {
+      id: userId,
+    },
+  });
 
   return (
     <IonPage>
@@ -66,11 +72,11 @@ const FavoriteSnacks = () => {
       <IonContent className="favorite-snacks">
         <Title title="Lanches Favoritos" />
 
-        {snacks.map((value, index) => {
+        {data?.user.favorites.map((snack: Snack) => {
           return (
             <SnackItem
-              snack={value}
-              key={index}
+              snack={snack}
+              key={snack.id}
               removeSnack={removeSnack}
               isAdd={false}
             />
@@ -81,4 +87,10 @@ const FavoriteSnacks = () => {
   );
 };
 
-export default FavoriteSnacks;
+const mapStateToProps = (state: StateType) => {
+  return {
+    userId: parseInt(state.user.id),
+  };
+};
+
+export default connect(mapStateToProps)(FavoriteSnacks);
