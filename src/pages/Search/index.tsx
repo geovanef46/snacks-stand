@@ -49,13 +49,13 @@ const Search = () => {
   let { loading, error, data } = useQuery(GET_SNACKS);
 
   
-  useQuery(GET_SNACKS).refetch()
-    .then((result) => {
-      data = result.data
-      loading = result.loading
+  // useQuery(GET_SNACKS).refetch()
+  //   .then((result) => {
+  //     data = result.data
+  //     loading = result.loading
       
-    })
-    .catch((err) => { error = err })
+  //   })
+  //   .catch((err) => { error = err })
   return (
     <IonPage>
       <IonHeader>
