@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonPage,
   IonContent,
   IonAvatar,
-  IonItemGroup,
   IonItem,
   IonIcon,
-  IonText,
   IonGrid,
   IonRow,
   IonCard,
+  IonLoading,
+  IonLabel,
+  IonSkeletonText,
 } from "@ionic/react";
 import { card } from "ionicons/icons";
 
@@ -38,12 +39,14 @@ const GET_USER = gql`
 const Profile = () => {
 
   const { data, loading, error } = useQuery(GET_USER)
+  const [showLoading, setShowLoading] = useState(false);
 
   return (
     <IonPage>
       <Header />
 
       <IonContent>
+
         <IonGrid >
           <IonRow class="ion-justify-content-center">
             <IonAvatar>
@@ -58,13 +61,28 @@ const Profile = () => {
           </IonRow>
 
           {loading ? (
-            <IonText>loading...</IonText>
-          ) : error ? (console.error("Erro ao buscar dados")
+            <div><IonLoading onDidPresent={() => setShowLoading(false)} isOpen={showLoading} onDidDismiss={() => setShowLoading(loading)} message={'Buscando dados...'}></IonLoading></div>
+          ) : error ? (<div>
+            <IonItem>
+              <IonLabel>
+                <h3>
+                  <IonSkeletonText animated style={{ width: '80%' }} />
+                </h3>
+                <p>
+                  <IonSkeletonText animated style={{ width: '60%' }} />
+                </p>
+                <p>
+                  <IonSkeletonText animated style={{ width: '80%' }} />
+                </p>
+              </IonLabel>
+            </IonItem>
+          </div>
           ) : (
+
                 <div>
-                  <IonItem><p>Nome:  {data.user.name}</p></IonItem>
+                  <IonItem onLoadStart={() => setShowLoading(true)}><p>Nome:  {data.user.name}</p></IonItem>
                   <IonItem>Telefone:   {data.user.phone}</IonItem>
-                  <IonItem>Endereço:  {data.user.address.street}, {data.user.address.number}, {data.user.address.city}, {data.user.address.state}</IonItem>
+                  <IonItem onLoadedData={() => setShowLoading(false)}>Endereço:  {data.user.address.street}, {data.user.address.number}, {data.user.address.city}, {data.user.address.state}</IonItem>
                 </div>
 
               )
@@ -79,6 +97,7 @@ const Profile = () => {
           </IonCard>
 
         </IonGrid>
+
       </IonContent>
     </IonPage>
   );
