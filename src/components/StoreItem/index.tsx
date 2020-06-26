@@ -26,7 +26,10 @@ const StoreItem = ({ store }: StoreItemParams) => {
       onClick={() => handleClick(store.id)}
     >
       <IonAvatar slot="start">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+        <img
+          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+          alt=""
+        />
       </IonAvatar>
       <IonLabel>
         <h2>{store.name}</h2>

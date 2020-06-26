@@ -8,8 +8,9 @@ import {
   IonLabel,
   IonBadge,
 } from "@ionic/react";
-import { Route, Redirect } from "react-router";
+import { Route } from "react-router";
 import { search, basket, person } from "ionicons/icons";
+import { connect } from "react-redux";
 
 import Search from "../Search";
 import Bag from "../Bag";
@@ -19,12 +20,10 @@ import FavoriteSnacks from "../FavoriteSnacks";
 import Comments from "../Comments";
 import Stores from "../Stores";
 import StoreDetails from "../StoreDetails";
-import Snacks from "../Snacks";
-
-import "./styles.css";
+import SnackDetails from "../SnackDetails";
 import Profile from "../Profile";
-import { connect } from "react-redux";
 import { StateType } from "../../store";
+import "./styles.css";
 
 type MainParams = {
   countItemsBag: number;
@@ -51,7 +50,7 @@ const MainTabs = ({ countItemsBag }: MainParams) => {
         <Route path="/comments" component={Comments} exact />
         <Route path="/stores" component={Stores} exact />
         <Route path="/stores/:id" component={StoreDetails} exact />
-        <Route path="/search/:id" component={Snacks} exact />
+        <Route path="/snacks/:id" component={SnackDetails} exact />
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom">

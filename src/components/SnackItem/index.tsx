@@ -9,19 +9,29 @@ import {
   IonIcon,
 } from "@ionic/react";
 import { basket, trash, heart } from "ionicons/icons";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 import Snack from "../../models/Snack";
-import "./styles.css";
-import { Dispatch } from "redux";
 import { addItem } from "../../store/action/bag";
+import { StateType } from "../../store";
+import "./styles.css";
+
+const ADD_FAVORITE_SNACK = gql`
+  mutation AddFavoriteSnack($userId: ID!, $snackId: ID!) {
+    addFavorite(user_id: $userId, snack_id: $snackId)
+  }
+`;
 
 type SnackItemParams = {
   dispatch: Dispatch;
   snack: Snack;
   isAdd: boolean; // To add in favorites or not -> verify after
   removeSnack: (id: number) => void;
+  userId: number;
 };
 
 const SnackItem = ({
@@ -29,15 +39,34 @@ const SnackItem = ({
   snack,
   removeSnack,
   isAdd,
+  userId,
 }: SnackItemParams) => {
-  const { id } = useParams<{ id: string }>();
+  // const { id } = useParams<{ id: string }>();
 
   const itemSlidingRef = useRef<HTMLIonItemSlidingElement>(null);
 
   const history = useHistory();
+  const [addFavorite] = useMutation(ADD_FAVORITE_SNACK);
 
   const handleClick = (id: number) => {
-    history.push(`/search/${id}`);
+    history.push(`/snacks/${id}`);
+  };
+
+  const handleAddFavorite = () => {
+    if (userId) {
+      addFavorite({
+        variables: {
+          userId,
+          snackId: snack.id,
+        },
+      }).then(({ data }) => {
+        if (data.addFavorite) {
+          alert("Favoritado!!");
+        }
+      });
+    } else {
+      alert("Você não está logado");
+    }
   };
 
   return (
@@ -50,7 +79,10 @@ const SnackItem = ({
           button={true}
         >
           <IonAvatar slot="start">
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+            <img
+              src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+              alt=""
+            />
           </IonAvatar>
           <IonLabel>
             <h2>{snack.name}</h2>
@@ -80,7 +112,7 @@ const SnackItem = ({
             <IonItemOption
               color="success"
               onClick={() => {
-                // removeSnack(snack.id);
+                handleAddFavorite();
                 itemSlidingRef?.current?.closeOpened();
               }}
             >
@@ -103,4 +135,10 @@ const SnackItem = ({
   );
 };
 
-export default connect()(SnackItem);
+const mapStateToProps = (state: StateType) => {
+  return {
+    userId: parseInt(state.user.id),
+  };
+};
+
+export default connect(mapStateToProps)(SnackItem);

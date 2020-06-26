@@ -1,4 +1,3 @@
-import Client from "../../models/Client";
 import { SET_USER } from "../actionTypes";
 
 type User = {

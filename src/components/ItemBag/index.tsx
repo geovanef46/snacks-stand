@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IonItem,
   IonGrid,
@@ -9,12 +9,12 @@ import {
   IonButton,
 } from "@ionic/react";
 import { add, remove } from "ionicons/icons";
-
-import ItemOrder from "../../models/ItemOrder";
-import "./styles.css";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+
+import ItemOrder from "../../models/ItemOrder";
 import { alterAmountItem } from "../../store/action/bag";
+import "./styles.css";
 
 type ItemProps = {
   dispatch: Dispatch;
