@@ -85,7 +85,7 @@ const RegisterUser = () => {
       });
   }, [stateSelected]);
 
-  const [createUser, { data }] = useMutation(CREATE_USER);
+  const [createUser] = useMutation(CREATE_USER);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -104,8 +104,11 @@ const RegisterUser = () => {
           city: citySelected,
         },
       },
-    });
-    alert("Registrado...");
+    })
+      .then(({ data }) => {
+        alert(`Registrado. ID: ${data.createUser.id}`);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

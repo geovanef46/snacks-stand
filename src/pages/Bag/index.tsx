@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IonContent,
   IonPage,
@@ -11,21 +11,15 @@ import {
   IonItemOption,
   IonItemOptions,
 } from "@ionic/react";
-import { useParams } from "react-router";
 import { arrowForward, logoUsd } from "ionicons/icons";
+import { connect } from "react-redux";
 
 import Header from "../../components/Header";
 import Title from "../../components/Title";
 import ItemOrder from "../../models/ItemOrder";
 import ItemBag from "../../components/ItemBag";
-import "./styles.css";
-import { connect } from "react-redux";
 import { StateType } from "../../store";
-
-type Position = {
-  x: number;
-  y: number;
-};
+import "./styles.css";
 
 type BagParams = {
   items: Array<ItemOrder>;
@@ -33,7 +27,7 @@ type BagParams = {
 };
 
 const Bag = ({ items, totalValue }: BagParams) => {
-  const { name } = useParams<{ name: string }>();
+  // const { name } = useParams<{ name: string }>();
 
   return (
     <IonPage>

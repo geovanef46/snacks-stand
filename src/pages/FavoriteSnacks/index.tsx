@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import {
-  IonPage,
-  IonContent,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
-} from "@ionic/react";
+import React from "react";
+import { IonPage, IonContent, IonText } from "@ionic/react";
 import gql from "graphql-tag";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { connect } from "react-redux";
 
 import Header from "../../components/Header";
 import Title from "../../components/Title";
 import Snack from "../../models/Snack";
 import SnackItem from "../../components/SnackItem";
-
-import "./styles.css";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { connect } from "react-redux";
 import { StateType } from "../../store";
+import "./styles.css";
 
 const GET_FAVORITE_SNACKS = gql`
   query GetFavoriteSnacks($id: ID!) {
@@ -72,16 +66,20 @@ const FavoriteSnacks = ({ userId }: FavoriteSnacksParams) => {
       <IonContent className="favorite-snacks">
         <Title title="Lanches Favoritos" />
 
-        {data?.user.favorites.map((snack: Snack) => {
-          return (
-            <SnackItem
-              snack={snack}
-              key={snack.id}
-              removeSnack={removeSnack}
-              isAdd={false}
-            />
-          );
-        })}
+        {loading || error ? (
+          <IonText>Carregando ou ERROR...</IonText>
+        ) : (
+          data?.user.favorites.map((snack: Snack) => {
+            return (
+              <SnackItem
+                snack={snack}
+                key={snack.id}
+                removeSnack={removeSnack}
+                isAdd={false}
+              />
+            );
+          })
+        )}
       </IonContent>
     </IonPage>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IonPage,
   IonContent,
@@ -8,14 +8,14 @@ import {
   IonCol,
   IonText,
 } from "@ionic/react";
+import { useParams } from "react-router";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
 
 import Header from "../../components/Header";
 import ShowRating from "../../components/ShowRating";
 import Snack from "../../models/Snack";
 import SnackItem from "../../components/SnackItem";
-import { useParams } from "react-router";
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
 
 const GET_SNACKS = gql`
   query GetSnacks($storeId: ID!) {
@@ -67,7 +67,10 @@ const StoreDetails = () => {
               <IonRow>
                 <IonCol>
                   <IonAvatar>
-                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+                    <img
+                      src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+                      alt=""
+                    />
                   </IonAvatar>
                   <ShowRating starRate={5} />
                 </IonCol>

@@ -1,17 +1,14 @@
 import React from "react";
 import { IonPage } from "@ionic/react";
-
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import { useParams } from "react-router";
+import { Map, Marker, TileLayer } from "react-leaflet";
 
 import Header from "../../components/Header";
-import Title from "../../components/Title";
 
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
 
 const Home: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
+  // const { name } = useParams<{ name: string }>();
 
   return (
     <IonPage>
