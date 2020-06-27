@@ -21,6 +21,9 @@ import { setUser } from "../../store/action/user";
 import { StateType } from "../../store";
 import { UserStateType } from "../../store/reducer/user";
 
+import { Plugins } from "@capacitor/core";
+const { Storage } = Plugins;
+
 const LOGIN = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -55,13 +58,17 @@ const Login = ({ dispatch, user }: LoginParams) => {
       },
     })
       .then(({ data }) => {
-        dispatch(
-          setUser({
-            id: data.login.user.id,
-            name: data.login.user.name,
-            token: data.login.token,
-          })
-        );
+        const user = {
+          id: data.login.user.id,
+          name: data.login.user.name,
+          token: data.login.token,
+        };
+        Storage.set({
+          key: "userData",
+          value: JSON.stringify(user),
+        }).then(() => {
+          dispatch(setUser(user));
+        });
         history.push("/home");
       })
       .catch((err) => {

@@ -20,6 +20,11 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
+import { Plugins } from "@capacitor/core";
+
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+
 /* Theme variables */
 import "./theme/variables.css";
 import "./styles.css";
@@ -30,8 +35,19 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import MainTabs from "./pages/MainTabs";
 import RegisterUser from "./pages/RegisterUser";
+import { setUser } from "./store/action/user";
 
-const App: React.FC = () => {
+type AppParams = {
+  dispatch: Dispatch;
+};
+
+const { Storage } = Plugins;
+
+const App = ({ dispatch }: AppParams) => {
+  Storage.get({ key: "userData" }).then((userData) => {
+    if (userData.value) dispatch(setUser(JSON.parse(userData.value)));
+  });
+
   return (
     <IonApp>
       <IonReactRouter>
@@ -51,4 +67,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default connect()(App);
