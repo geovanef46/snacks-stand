@@ -24,17 +24,15 @@ export default function bag(state = initialState, action: Action) {
       const itemAdd = getItem(state.items, action.payload);
 
       if (itemAdd) {
-        const newItem = Object.assign({}, itemAdd, {
-          amount: itemAdd.amount + 1,
-        });
-
         return Object.assign({}, state, {
-          items: [
-            ...state.items.filter(
-              (itemList) => itemList.snack.id !== newItem.snack.id
-            ),
-            newItem,
-          ],
+          items: state.items.map((itemList) => {
+            if (itemList.snack.id === action.payload.snack.id)
+              return {
+                ...itemList,
+                amount: itemAdd.amount + 1,
+              };
+            return itemList;
+          }),
         });
       } else {
         return Object.assign({}, state, {
@@ -49,18 +47,16 @@ export default function bag(state = initialState, action: Action) {
       const item = getItem(state.items, action.payload);
 
       if (item) {
-        const newItem = Object.assign({}, item, {
-          amount: action.payload.amount,
-          price: action.payload.price,
-        });
-
         return Object.assign({}, state, {
-          items: [
-            ...state.items.filter(
-              (itemList) => itemList.snack.id !== newItem.snack.id
-            ),
-            newItem,
-          ],
+          items: state.items.map((itemList) => {
+            if (itemList.snack.id === action.payload.snack.id)
+              return {
+                ...itemList,
+                amount: action.payload.amount,
+                price: action.payload.price,
+              };
+            return itemList;
+          }),
         });
       } else {
         return Object.assign({}, state, {
