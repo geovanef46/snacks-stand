@@ -13,41 +13,50 @@ import {
   IonSkeletonText,
 } from "@ionic/react";
 import { card } from "ionicons/icons";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import { connect } from "react-redux";
 
 import Header from "../../components/Header";
 import Title from "../../components/Title";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { StateType } from "../../store";
 
 const GET_USER = gql`
-{
-  user(id: 2){
-    name
-    phone
-    address{
-      id
-      street
-      number
-      district
-      city
-      state
+  query GetUser($userId: ID!) {
+    user(id: $userId) {
+      name
+      phone
+      address {
+        id
+        street
+        number
+        district
+        city
+        state
+      }
     }
   }
-}
 `;
 
-const Profile = () => {
+type ProfileParams = {
+  userId: number;
+};
 
-  const { data, loading, error } = useQuery(GET_USER)
+const Profile = ({ userId }: ProfileParams) => {
   const [showLoading, setShowLoading] = useState(false);
+
+  const { data, loading, error } = useQuery(GET_USER, {
+    variables: {
+      userId,
+    },
+  });
 
   return (
     <IonPage>
       <Header />
 
       <IonContent>
-
-        <IonGrid >
+        <IonGrid>
           <IonRow class="ion-justify-content-center">
             <IonAvatar>
               <img
@@ -61,32 +70,43 @@ const Profile = () => {
           </IonRow>
 
           {loading ? (
-            <div><IonLoading onDidPresent={() => setShowLoading(false)} isOpen={showLoading} onDidDismiss={() => setShowLoading(loading)} message={'Buscando dados...'}></IonLoading></div>
-          ) : error ? (<div>
-            <IonItem>
-              <IonLabel>
-                <h3>
-                  <IonSkeletonText animated style={{ width: '80%' }} />
-                </h3>
-                <p>
-                  <IonSkeletonText animated style={{ width: '60%' }} />
-                </p>
-                <p>
-                  <IonSkeletonText animated style={{ width: '80%' }} />
-                </p>
-              </IonLabel>
-            </IonItem>
-          </div>
+            <div>
+              <IonLoading
+                onDidPresent={() => setShowLoading(false)}
+                isOpen={showLoading}
+                onDidDismiss={() => setShowLoading(loading)}
+                message={"Buscando dados..."}
+              ></IonLoading>
+            </div>
+          ) : error ? (
+            <div>
+              <IonItem>
+                <IonLabel>
+                  <h3>
+                    <IonSkeletonText animated style={{ width: "80%" }} />
+                  </h3>
+                  <p>
+                    <IonSkeletonText animated style={{ width: "60%" }} />
+                  </p>
+                  <p>
+                    <IonSkeletonText animated style={{ width: "80%" }} />
+                  </p>
+                </IonLabel>
+              </IonItem>
+            </div>
           ) : (
-
-                <div>
-                  <IonItem onLoadStart={() => setShowLoading(true)}><p>Nome:  {data.user.name}</p></IonItem>
-                  <IonItem>Telefone:   {data.user.phone}</IonItem>
-                  <IonItem onLoadedData={() => setShowLoading(false)}>Endereço:  {data.user.address.street}, {data.user.address.number}, {data.user.address.city}, {data.user.address.state}</IonItem>
-                </div>
-
-              )
-          }
+            <div>
+              <IonItem onLoadStart={() => setShowLoading(true)}>
+                <p>Nome: {data.user?.name}</p>
+              </IonItem>
+              <IonItem>Telefone: {data.user?.phone}</IonItem>
+              <IonItem onLoadedData={() => setShowLoading(false)}>
+                Endereço: {data.user?.address.street},{" "}
+                {data.user?.address.number}, {data.user?.address.city},{" "}
+                {data.user?.address.state}
+              </IonItem>
+            </div>
+          )}
           <IonRow class="ion-justify-content-center">
             <IonItem> Meus Cartões</IonItem>
           </IonRow>
@@ -95,12 +115,16 @@ const Profile = () => {
               {" "}
             </IonIcon>
           </IonCard>
-
         </IonGrid>
-
       </IonContent>
     </IonPage>
   );
 };
 
-export default Profile;
+const mapStateToProps = (state: StateType) => {
+  return {
+    userId: parseInt(state.user.id),
+  };
+};
+
+export default connect(mapStateToProps)(Profile);
