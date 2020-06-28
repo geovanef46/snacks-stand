@@ -1,76 +1,27 @@
 import React, { useState } from "react";
-import {
-  IonPage,
-  IonContent,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
-  IonSearchbar,
-} from "@ionic/react";
+import { IonPage, IonContent, IonSearchbar, IonText } from "@ionic/react";
 
 import Header from "../../components/Header";
 import Store from "../../models/Store";
 import StoreItem from "../../components/StoreItem";
 import "./styles.css";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
 
-const stores: Store[] = [
+const GET_STORES = gql`
   {
-    id: 1,
-    name: "Lanchonete do Júnior",
-    description:
-      "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
-    stars: 4,
-    phone: "131312",
-    available: true,
-  },
-  {
-    id: 2,
-    name: "Lanchonete do Geovane",
-    description:
-      "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
-    stars: 4.5,
-    phone: "131312",
-    available: true,
-  },
-  {
-    id: 3,
-    name: "Lanchonete do Jackie Chan",
-    description:
-      "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
-    stars: 3,
-    phone: "131312",
-    available: true,
-  },
-  {
-    id: 4,
-    name: "Lanchonete do Júnior",
-    description:
-      "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
-    stars: 4,
-    phone: "131312",
-    available: true,
-  },
-  {
-    id: 5,
-    name: "Lanchonete do Geovane",
-    description:
-      "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
-    stars: 4.5,
-    phone: "131312",
-    available: true,
-  },
-  {
-    id: 6,
-    name: "Lanchonete do Jackie Chan",
-    description:
-      "Nós vendemos lanches baratinhos, entregamos na sua casa com segurança e higiene",
-    stars: 3,
-    phone: "131312",
-    available: true,
-  },
-];
+    stores {
+      id
+      name
+      classification
+    }
+  }
+`;
 
 const Stores = () => {
   const [searchText, setSearchText] = useState("");
+
+  const { loading, error, data } = useQuery(GET_STORES);
 
   return (
     <IonPage>
@@ -84,20 +35,15 @@ const Stores = () => {
           color="light"
           placeholder="Pesquisar"
         />
-
-        <IonInfiniteScroll>
-          {stores
-            .filter((item) =>
+        {loading || error ? (
+          <IonText>Carregando ou ERRO</IonText>
+        ) : (
+          data.stores
+            .filter((item: Store) =>
               item.name.toLowerCase().includes(searchText.toLowerCase())
             )
-            .map((value, index) => (
-              <StoreItem store={value} key={index} />
-            ))}
-          <IonInfiniteScrollContent
-            loadingSpinner="bubbles"
-            loadingText="Carregando dados..."
-          />
-        </IonInfiniteScroll>
+            .map((value: Store) => <StoreItem store={value} key={value.id} />)
+        )}
       </IonContent>
     </IonPage>
   );

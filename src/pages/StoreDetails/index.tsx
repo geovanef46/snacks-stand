@@ -42,6 +42,11 @@ const GET_SNACKS = gql`
         name
         description
       }
+      news {
+        id
+        name
+        description
+      }
     }
   }
 `;
@@ -115,7 +120,7 @@ const StoreDetails = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  {data?.store.snacks.map((snack: Snack) => {
+                  {data?.store.news.map((snack: Snack) => {
                     return (
                       <SnackItem
                         snack={snack}

@@ -34,7 +34,7 @@ const StoreItem = ({ store }: StoreItemParams) => {
       <IonLabel>
         <h2>{store.name}</h2>
         <p>{store.description}</p>
-        <ShowRating starRate={store.stars} />
+        <ShowRating starRate={store.classification} />
       </IonLabel>
     </IonItem>
   );

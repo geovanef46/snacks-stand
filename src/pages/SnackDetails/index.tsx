@@ -19,8 +19,11 @@ import { useParams } from "react-router";
 import { basket, arrowForward } from "ionicons/icons";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
 import Header from "../../components/Header";
+import { addItem } from "../../store/action/bag";
 
 const GET_SNACK = gql`
   query GetSnack($snackId: ID!) {
@@ -28,11 +31,16 @@ const GET_SNACK = gql`
       id
       name
       description
+      price
     }
   }
 `;
 
-const SnackDetails = () => {
+type SnackDetailsParams = {
+  dispatch: Dispatch;
+};
+
+const SnackDetails = ({ dispatch }: SnackDetailsParams) => {
   const { id: snackId } = useParams<{ id: string }>();
 
   const { loading, error, data } = useQuery(GET_SNACK, {
@@ -76,7 +84,19 @@ const SnackDetails = () => {
               <IonRow>
                 <IonItemSliding>
                   <IonItemOptions side="start">
-                    <IonItemOption color="dark" expandable>
+                    <IonItemOption
+                      color="dark"
+                      expandable
+                      onClick={() => {
+                        dispatch(
+                          addItem({
+                            amount: 1,
+                            snack: data?.snack,
+                            price: data?.snack.price,
+                          })
+                        );
+                      }}
+                    >
                       <IonIcon icon={basket} slot="icon-only" />
                     </IonItemOption>
                   </IonItemOptions>
@@ -94,4 +114,4 @@ const SnackDetails = () => {
   );
 };
 
-export default SnackDetails;
+export default connect()(SnackDetails);

@@ -3,6 +3,6 @@ export default interface Store {
   name: string;
   description: string;
   phone: string;
-  stars: number;
+  classification: number;
   available: boolean;
 }

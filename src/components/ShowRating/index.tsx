@@ -14,7 +14,7 @@ const ShowRating = ({ starRate }: ShowRatingParams) => {
     for (i = 0; i < Math.floor(starRate); i++) {
       a.push(<IonIcon slot="end" icon={star} color="dark" key={i} />);
     }
-    if (starRate % 1 !== 0) {
+    if (starRate && starRate % 1 !== 0) {
       a.push(<IonIcon slot="end" icon={starHalf} color="dark" key={i} />);
     }
     return a;
