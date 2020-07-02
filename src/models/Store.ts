@@ -5,4 +5,6 @@ export default interface Store {
   phone: string;
   classification: number;
   available: boolean;
+  latitude: number;
+  longitude: number;
 }
