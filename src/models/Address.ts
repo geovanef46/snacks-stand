@@ -6,4 +6,7 @@ export default interface Address {
   district: string;
   city: string;
   state: string;
+
+  latitude: number;
+  longitude: number;
 }

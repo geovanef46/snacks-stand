@@ -1,3 +1,5 @@
+import Address from "./Address";
+
 export default interface Store {
   id: number;
   name: string;
@@ -5,6 +7,5 @@ export default interface Store {
   phone: string;
   classification: number;
   available: boolean;
-  latitude: number;
-  longitude: number;
+  address: Address;
 }
