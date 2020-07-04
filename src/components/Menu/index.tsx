@@ -26,6 +26,7 @@ import {
   paperPlaneSharp,
   restaurantOutline,
   trashSharp,
+  menuSharp,
 } from "ionicons/icons";
 
 import "./styles.css";
@@ -40,44 +41,51 @@ interface AppPage {
 }
 
 interface MenuParams {
+  userId: string;
   userName: string;
 }
 
-const appPages: AppPage[] = [
-  {
-    title: "Pedidos",
-    url: "/orders",
-    iosIcon: clipboardOutline,
-    mdIcon: mailSharp,
-  },
-  {
-    title: "Favoritos",
-    url: "/favorites",
-    iosIcon: heartOutline,
-    mdIcon: paperPlaneSharp,
-  },
-  {
-    title: "Comentários",
-    url: "/comments",
-    iosIcon: chatbubbleOutline,
-    mdIcon: heartSharp,
-  },
-  {
-    title: "Lanchonetes",
-    url: "/stores",
-    iosIcon: restaurantOutline,
-    mdIcon: archiveSharp,
-  },
-  {
-    title: "Sair",
-    url: "/logout",
-    iosIcon: logOutOutline,
-    mdIcon: trashSharp,
-  },
-];
-
-const Menu = ({ userName }: MenuParams) => {
+const Menu = ({ userId, userName }: MenuParams) => {
   const location = useLocation();
+
+  const appPages = (): AppPage[] => {
+    const menus = [
+      {
+        title: "Pedidos",
+        url: "/orders",
+        iosIcon: clipboardOutline,
+        mdIcon: mailSharp,
+      },
+      {
+        title: "Favoritos",
+        url: "/favorites",
+        iosIcon: heartOutline,
+        mdIcon: paperPlaneSharp,
+      },
+      {
+        title: "Comentários",
+        url: "/comments",
+        iosIcon: chatbubbleOutline,
+        mdIcon: heartSharp,
+      },
+      {
+        title: "Lanchonetes",
+        url: "/stores",
+        iosIcon: restaurantOutline,
+        mdIcon: archiveSharp,
+      },
+    ];
+
+    if (userId)
+      menus.push({
+        title: "Sair",
+        url: "/logout",
+        iosIcon: logOutOutline,
+        mdIcon: trashSharp,
+      });
+
+    return menus;
+  };
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -91,7 +99,7 @@ const Menu = ({ userName }: MenuParams) => {
         <IonList id="inbox-list">
           <IonListHeader>Bem-vindo</IonListHeader>
           <IonNote>{userName}</IonNote>
-          {appPages.map((appPage, index) => {
+          {appPages().map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem
@@ -117,6 +125,7 @@ const Menu = ({ userName }: MenuParams) => {
 
 const mapStateToProps = (state: StateType) => {
   return {
+    userId: state.user.id,
     userName: state.user.name,
   };
 };

@@ -1,4 +1,4 @@
-import { SET_USER } from "../actionTypes";
+import { SET_USER, LOGOUT_USER } from "../actionTypes";
 
 type User = {
   id: string;
@@ -10,5 +10,12 @@ export function setUser(user: User) {
   return {
     type: SET_USER,
     payload: user,
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOGOUT_USER,
+    payload: null,
   };
 }

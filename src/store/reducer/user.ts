@@ -1,4 +1,4 @@
-import { SET_USER } from "../actionTypes";
+import { SET_USER, LOGOUT_USER } from "../actionTypes";
 import { Action } from "..";
 
 export interface UserStateType {
@@ -22,6 +22,8 @@ export default function user(state = initialState, action: Action) {
         name: action.payload.name,
         token: action.payload.token,
       };
+    case LOGOUT_USER:
+      return initialState;
     default:
       return state;
   }
