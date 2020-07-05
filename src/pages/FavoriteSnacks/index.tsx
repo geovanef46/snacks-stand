@@ -10,6 +10,7 @@ import Snack from "../../models/Snack";
 import SnackItem from "../../components/SnackItem";
 import { StateType } from "../../store";
 import "./styles.css";
+import user from "../../store/reducer/user";
 
 const GET_FAVORITE_SNACKS = gql`
   query GetFavoriteSnacks($id: ID!) {
@@ -60,29 +61,42 @@ const FavoriteSnacks = ({ userId }: FavoriteSnacksParams) => {
     },
   });
 
-  return (
-    <IonPage>
-      <Header />
-      <IonContent className="favorite-snacks">
-        <Title title="Lanches Favoritos" />
+  if (!userId) {
+    return (
+      <IonPage>
+        <Header />
+        <IonContent className="favorite-snacks">
+          <Title title="Lanches Favoritos" />
 
-        {loading || error ? (
-          <IonText>Carregando ou ERROR...</IonText>
-        ) : (
-          data?.user.favorites.map((snack: Snack) => {
-            return (
-              <SnackItem
-                snack={snack}
-                key={snack.id}
-                removeSnack={removeSnack}
-                isAdd={false}
-              />
-            );
-          })
-        )}
-      </IonContent>
-    </IonPage>
-  );
+          <IonText>Realize Login para acessar</IonText>
+        </IonContent>
+      </IonPage>
+    );
+  } else {
+    return (
+      <IonPage>
+        <Header />
+        <IonContent className="favorite-snacks">
+          <Title title="Lanches Favoritos" />
+
+          {loading || error ? (
+            <IonText>Carregando ou ERROR...</IonText>
+          ) : (
+            data?.user.favorites.map((snack: Snack) => {
+              return (
+                <SnackItem
+                  snack={snack}
+                  key={snack.id}
+                  removeSnack={removeSnack}
+                  isAdd={false}
+                />
+              );
+            })
+          )}
+        </IonContent>
+      </IonPage>
+    );
+  }
 };
 
 const mapStateToProps = (state: StateType) => {
